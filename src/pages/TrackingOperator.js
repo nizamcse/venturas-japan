@@ -1,14 +1,17 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useRef } from 'react';
-import * as proj from 'ol/proj';
 import Map from 'ol/Map';
 import View from 'ol/View';
 import TileLayer from 'ol/layer/Tile';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import XYZ from 'ol/source/XYZ';
+import { transform, fromLonLat } from 'ol/proj';
+
+// somewhere deep in our code
 import Feature from 'ol/Feature';
 import Point from 'ol/geom/Point';
+// import proj from 'ol/proj';
 import Style from 'ol/style/Style';
 import Icon from 'ol/style/Icon';
 
@@ -22,7 +25,7 @@ function MapView(props) {
     mapRef.current = map;
     useEffect(() => {
         const rome = new Feature({
-            geometry: new Point(proj.fromLonLat([12.5, 41.9])),
+            geometry: new Point(fromLonLat([12.5, 41.9])),
         });
         rome.setStyle(
             new Style({
@@ -63,14 +66,24 @@ function MapView(props) {
 
     const handleMapClick = (event) => {
         const clickedCoord = mapRef.current.getCoordinateFromPixel(event.pixel);
-        const transormedCoord = proj.transform(
+        const transormedCoord = transform(
             clickedCoord,
             'EPSG:3857',
             'EPSG:4326'
         );
         setSelectedCoord(transormedCoord);
     };
-    return <div ref={mapElement} className="map-container" />;
+    return (
+        <div
+            style={{
+                width: '100%',
+                height: '500px',
+                backgroundColor: 'red',
+            }}
+            ref={mapElement}
+            className="map-container"
+        />
+    );
 }
 
 export default MapView;
