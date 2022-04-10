@@ -5,9 +5,8 @@ import { AuthContext } from '../context/AuthContext';
 // eslint-disable-next-line react/prop-types
 const PrivateRoute = ({ children }) => {
     const { auth } = useContext(AuthContext);
-    if (!auth) return <Navigate to="/login" />;
-    // if (auth && role === 'ADMIN') return <Navigate to="/" replace />;
-    // if (auth && role === 'OPERATOR') return <Navigate to="/account" replace />;
+    const token = localStorage.getItem('__authToken');
+    if (!auth && !token) return <Navigate to="/login" />;
     return children;
 };
 

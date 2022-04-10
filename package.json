@@ -2,7 +2,6 @@
     "name": "venturas-japan",
     "version": "0.1.0",
     "private": true,
-    "homepage": "https://nizamcse.github.io/venturas-japan",
     "dependencies": {
         "@emotion/react": "^11.9.0",
         "@emotion/styled": "^11.8.1",

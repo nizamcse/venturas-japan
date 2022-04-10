@@ -37,6 +37,7 @@ const AuthProvider = ({ children }) => {
         const authToken = localStorage.getItem('__authToken') || null;
         if (authToken) {
             const user = parseJwt(authToken);
+            console.log(user, authToken);
             setAuth(true);
             setToken(authToken);
             setRole(user.userType);
